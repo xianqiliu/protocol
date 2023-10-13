@@ -20,6 +20,7 @@ option csharp_namespace = "LiveKit.Proto";
 option ruby_package = "LiveKit::Proto";
 
 import "livekit_models.proto";
+import "livekit_room.proto";
 
 message SignalRequest {
   oneof message {
@@ -50,6 +51,10 @@ message SignalRequest {
     // update a participant's own metadata and/or name
     UpdateParticipantMetadata update_metadata = 15;
     Ping ping_req = 16;
+    // Across roomR request
+    AcrossRoomRequest across_room = 17;
+    // Room api request
+    RoomRequest room_request = 18;
   }
 }
 
@@ -96,6 +101,8 @@ message SignalResponse {
     Pong pong_resp = 20;
     // Subscription response, client should not expect any media from this subscription if it fails
     SubscriptionResponse subscription_response = 21;
+    // Room merge
+    RoomMergeResponse room_merge = 22;
   }
 }
 
@@ -107,8 +114,15 @@ enum SignalTarget {
 message SimulcastCodec {
   string codec = 1;
   string cid = 2;
+  bool enable_simulcast_layers = 3;
   
   // NEXT-ID: 4
+}
+message AcrossRoomRequest {
+  string room_name =1;
+  // string identity = 2;
+  string other_name = 3;
+  bool is_enable = 4;
 }
 
 message AddTrackRequest {
@@ -144,6 +158,10 @@ message AddTrackRequest {
 message TrickleRequest {
   string candidateInit = 1;
   SignalTarget target = 2;
+//   string candidate = 3;
+//   string sdpMid = 4;
+//   string sdpMLineIndex = 5;
+//   string usernameFragment = 6;
 }
 
 message MuteTrackRequest {
@@ -176,6 +194,13 @@ message JoinResponse {
 message ReconnectResponse {
   repeated ICEServer ice_servers = 1;
   ClientConfiguration client_configuration = 2;
+}
+
+message RoomMergeResponse {
+  string room_name =1;
+  // string identity = 2;
+  string other_name = 3;
+  bool is_enable = 4;
 }
 
 message TrackPublishedResponse {

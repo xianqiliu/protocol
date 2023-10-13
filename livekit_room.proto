@@ -22,6 +22,21 @@ option ruby_package = "LiveKit::Proto";
 import "livekit_models.proto";
 import "livekit_egress.proto";
 
+message RoomRequest {
+  oneof message {
+    CreateRoomRequest create_room = 1;
+    ListRoomsRequest list_rooms = 2;
+    DeleteRoomRequest delete_room = 3;
+    ListParticipantsRequest list_participants = 4;
+    RoomParticipantIdentity room_participant_identity = 5;
+    MuteRoomTrackRequest mute_room_track = 6;
+    UpdateParticipantRequest update_participant = 7;
+    UpdateSubscriptionsRequest update_subscriptions = 8;
+    SendDataRequest send_data = 9;
+    UpdateRoomMetadataRequest update_room_metadata = 10;
+  }
+}
+
 // Room service that can be performed on any node
 // they are Twirp-based HTTP req/responses
 service RoomService {

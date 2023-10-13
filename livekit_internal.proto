@@ -134,6 +134,7 @@ message RTCNodeMessage {
     SendDataRequest send_data = 9;
     UpdateRoomMetadataRequest update_room_metadata = 10;
     KeepAlive keep_alive = 12;
+    AcrossRoomRequest across_room = 18;
   }
 
   // NEXT ID: 17
